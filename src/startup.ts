@@ -1,4 +1,4 @@
-import { absolute, graphics, spinner, store, twoway, window } from "openrct2-flexui";
+import { absolute, graphics, label, spinner, store, twoway, window } from "openrct2-flexui";
 import service from "./service";
 
 const _service = new service();
@@ -23,7 +23,7 @@ const setSpinnerValues = function (): void {
 const shifterWindow = window({
 	title: "Shift map",
 	width: { value: 300 },
-	height: { value: 172 },
+	height: { value: 212 },
 	content: [
 		absolute([
 			graphics({
@@ -106,6 +106,14 @@ const shifterWindow = window({
 				y: 130,
 				width: 60,
 				height: 15
+			}),
+			label({
+				text: "WARNING! Changes are irreversible and\ncan be destructive. Use at your own risk,\nand make save file backups.",
+				alignment: "left",
+				x: 6,
+				y: 152,
+				height: 42,
+				width: 288
 			})
 		])
 	],
