@@ -20,8 +20,8 @@ const setSpinnerValues = function (): void {
 	sizeNWSE.set(size_nw_se());
 }
 
-const shifterWindow = window({
-	title: "Shift map",
+const resizerWindow = window({
+	title: "Resize map",
 	width: { value: 300 },
 	height: { value: 212 },
 	content: [
@@ -123,9 +123,9 @@ const shifterWindow = window({
 export function startup() {
 	if (typeof ui !== "undefined")
 	{
-		ui.registerMenuItem("Shift map", () => {
+		ui.registerMenuItem("Resize map", () => {
 			setSpinnerValues();
-			shifterWindow.open();
+			resizerWindow.open();
 
 			// I don't think we can subscribe to the
 			// viewport being rotated, so this is

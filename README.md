@@ -1,4 +1,4 @@
-# Map shifter
+# Map Resizer
 
 A plugin for OpenRCT2 that allows you to adjust the size of your park map by adjusting in all four directions.
 
