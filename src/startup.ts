@@ -12,12 +12,23 @@ const size_ne_sw = (): number =>
 let sizeNESW = store<number>(size_ne_sw());
 let sizeNWSE = store<number>(size_nw_se());
 
+// Store previous value of each spinner for bounds checking.
+let spinnerNE: number;
+let spinnerNW: number;
+let spinnerSE: number;
+let spinnerSW: number;
+
 let timeoutHandle: number = -1;
 let mapRotation: number = ui.mainViewport.rotation;
 
 const setSpinnerValues = function (): void {
 	sizeNESW.set(size_ne_sw());
 	sizeNWSE.set(size_nw_se());
+
+  spinnerNE = size_ne_sw();
+  spinnerSW = size_ne_sw();
+  spinnerNW = size_nw_se();
+  spinnerSE = size_nw_se();
 }
 
 const resizerWindow = window({
@@ -67,41 +78,61 @@ const resizerWindow = window({
 				width: "100%",
 				height: "100%"
 			}),
-			spinner({
+			spinner({ // NW
 				minimum: 3,
 				maximum: 999,
 				value: twoway(sizeNWSE),
-				onChange: (value: number, adjustment: number) => _service.adjust(0, value, adjustment),
+				onChange: (value: number, adjustment: number) => {
+          if (value !== spinnerNW) {
+            _service.adjust(0, value, adjustment);
+            spinnerNW = value;
+          }
+        },
 				x: 6,
 				y: 6,
 				width: 60,
 				height: 15
 			}),
-			spinner({
+			spinner({ // NE
 				minimum: 3,
 				maximum: 999,
 				value: twoway(sizeNESW),
-				onChange: (value: number, adjustment: number) => _service.adjust(1, value, adjustment),
+				onChange: (value: number, adjustment: number) => {
+          if (value !== spinnerNE) {
+            _service.adjust(1, value, adjustment);
+            spinnerNE = value;
+          }
+        },
 				x: 228,
 				y: 6,
 				width: 60,
 				height: 15
 			}),
-			spinner({
+			spinner({ // SE
 				minimum: 3,
 				maximum: 999,
 				value: twoway(sizeNWSE),
-				onChange: (value: number, adjustment: number) => _service.adjust(2, value, adjustment),
+				onChange: (value: number, adjustment: number) => {
+          if (value !== spinnerSE) {
+            _service.adjust(2, value, adjustment);
+            spinnerSE = value;
+          }
+        },
 				x: 228,
 				y: 130,
 				width: 60,
 				height: 15
 			}),
-			spinner({
+			spinner({ // SW
 				minimum: 3,
 				maximum: 999,
 				value: twoway(sizeNESW),
-				onChange: (value: number, adjustment: number) => _service.adjust(3, value, adjustment),
+				onChange: (value: number, adjustment: number) => {
+          if (value !== spinnerSW) {
+            _service.adjust(3, value, adjustment);
+            spinnerSW = value;
+          }
+        },
 				x: 6,
 				y: 130,
 				width: 60,
